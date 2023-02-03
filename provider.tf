@@ -17,7 +17,8 @@
 
 ## Specifies the Region your Terraform Provider will server
 provider "aws" {
-  region = "us-east-1"
+  source  = "hashicorp/aws"
+  version = "~> 4.16"
 }
 ## Specifies the S3 Bucket and DynamoDB table used for the durable backend and state locking
 

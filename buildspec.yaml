@@ -21,18 +21,16 @@ phases:
   install:
     commands:
       - "apt install unzip -y"
-      - "sudo apt-get update && sudo apt-get install -y software-properties-common gnupg2 curl"
-      - "curl https://apt.releases.hashicorp.com/gpg | gpg --dearmor > hashicorp.gpg"
-      - "sudo install -o root -g root -m 644 hashicorp.gpg /etc/apt/trusted.gpg.d/"
-      - "sudo apt-add-repository 'deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main'"
-      - "sudo apt install terraform"
+      - "wget https://releases.hashicorp.com/terraform/0.11.14/terraform_0.11.14_linux_amd64.zip"
+      - "unzip terraform_0.11.14_linux_amd64.zip"
+      - "mv terraform /usr/local/bin/"
   pre_build:
     commands:
-      - terraform init
+      - /usr/local/bin/terraform init
 
   build:
     commands:
-      - terraform $TF_COMMAND -auto-approve
+      - /usr/local/bin/terraform $TF_COMMAND -auto-approve
 
   post_build:
     commands:

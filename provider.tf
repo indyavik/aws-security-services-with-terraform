@@ -16,19 +16,23 @@
 
 
 ## Specifies the Region your Terraform Provider will server
-provider "aws" {
-  region = "us-east-1"
-  source  = "hashicorp/aws"
-  version = "~> 4.16"
-}
-## Specifies the S3 Bucket and DynamoDB table used for the durable backend and state locking
-
 terraform {
-    backend "s3" {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+      backend "s3" {
       encrypt = true
       bucket = "ci-cd-vik"
       dynamodb_table = "terraform-state-lock-dynamo"
       key = "tfstates/terraform.tfstate"
       region = "us-west-2"
   }
+
+  required_version = ">= 1.2.0"
+
+
 }
